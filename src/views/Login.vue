@@ -52,10 +52,12 @@ export default {
                 this.loading = false
                 this.$root.auth = response.data.data;
                 localStorage.setItem('auth', JSON.stringify(response.data.data));
-                this.$router.push('home');
+                this.$router.push('/');
+                this.$noty.success('Successfully loged in');
             })
             .catch(({response}) => {
                 this.loading = false
+                this.$noty.error("Oops, something went wrong!")
                 if(response.status === 401){
                     this.errors = {
                         email: ['These credentials do not match our records.']

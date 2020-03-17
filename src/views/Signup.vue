@@ -63,12 +63,13 @@ export default {
                 const {data: authUserData } = data
                 localStorage.setItem('auth', JSON.stringify(authUserData))
                 this.$root.auth = authUserData
-
-                this.$router.push('home')
+                this.$noty.success('Successfully Registered');
+                this.$router.push('/')
             })
             .catch(({response}) => {
                 this.loading = false
                 this.submitted = true
+                this.$noty.error("Oops, something went wrong!")
                 this.errors = response.data
             })
         }
