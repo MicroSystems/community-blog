@@ -36,8 +36,20 @@
 
 <script>
 import Axios from 'axios'
+import config from '@/config'
 
 export default {
+    // life cycle hook beforRouteEnter
+    beforeRouteEnter(to, from, next) {
+        if(localStorage.getItem('auth')) {
+            return next({
+                path: '/'
+            })
+        }
+
+        next()
+    },
+
     data() {
         return {
             name: '',
@@ -52,7 +64,7 @@ export default {
     methods:{
         registerUser() {
             this.loading = true
-            Axios.post('https://react-blog-api.bahdcasts.com/api/auth/register', {
+            Axios.post(`${config.apiUrl}/auth/register`, {
                     name: this.name,
                     email: this.email,
                     password: this.password
